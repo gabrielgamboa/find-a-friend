@@ -1,7 +1,5 @@
-export interface OrgsRepository {
-	create(org: Org): Promise<void>;
-}
+import { Org, Prisma } from "@prisma/client";
 
-export class Org {
-	id: string | undefined;
+export interface OrgsRepository {
+	create(org: Prisma.OrgCreateInput): Promise<Org>;
 }
