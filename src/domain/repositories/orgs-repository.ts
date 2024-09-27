@@ -1,3 +1,3 @@
 export interface OrgsRepository {
-    create(org: Org): Promise<void>
+	create(org: Org): Promise<void>;
 }
