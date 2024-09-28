@@ -16,6 +16,7 @@ datasource db {
 model Org {
   id              String   @id @default(uuid())
   responsibleName String   @db.VarChar(255)
+  password_hash   String   @db.VarChar(255)
   email           String   @db.VarChar(50)
   createdAt       DateTime @default(now())
   cep             String   @db.VarChar(11)

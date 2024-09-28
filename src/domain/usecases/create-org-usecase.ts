@@ -1,10 +1,12 @@
 import { hash } from "bcryptjs";
+import { Encrypt } from "../encrypt/encrypt";
 import { OrgsRepository } from "../repositories/orgs-repository";
 import { OrgAlreadyExistsError } from "./errors/org-already-exists-error";
 
 interface CreateOrgUseCaseRequest {
 	responsibleName: string;
 	email: string;
+	password: string;
 	cep: string;
 	address: string;
 	state: string;
@@ -13,9 +15,11 @@ interface CreateOrgUseCaseRequest {
 
 export class CreateOrgUseCase {
 	private orgsRepository: OrgsRepository;
+	private encrypt: Encrypt;
 
-	constructor(orgsRepository: OrgsRepository) {
+	constructor(orgsRepository: OrgsRepository, encrypt: Encrypt) {
 		this.orgsRepository = orgsRepository;
+		this.encrypt = encrypt;
 	}
 
 	async execute(data: CreateOrgUseCaseRequest) {
@@ -25,7 +29,12 @@ export class CreateOrgUseCase {
 			throw new OrgAlreadyExistsError();
 		}
 
-		const createdOrg = await this.orgsRepository.create(data);
+		const password_hash = await this.encrypt.hash(data.password);
+
+		const createdOrg = await this.orgsRepository.create({
+			...data,
+			password_hash,
+		});
 
 		return createdOrg;
 	}
