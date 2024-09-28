@@ -10,4 +10,10 @@ export class PrismaOrgsRepository implements OrgsRepository {
 
 		return result;
 	}
+
+	async findByEmail(email: string): Promise<Org | null> {
+		return await prisma.org.findFirst({
+			where: { email },
+		});
+	}
 }

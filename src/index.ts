@@ -1,5 +1,5 @@
-import { fastifyInstance } from './app';
+import { app } from "./app";
 
-fastifyInstance.listen({ port: 3333 }, () => console.log('Server is running on port 3333'));
+app.listen({ port: 3333 }, () => console.log("Server is running on port 3333"));
 
 //ver sobre biome js

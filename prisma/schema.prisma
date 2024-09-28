@@ -18,6 +18,10 @@ model Org {
   responsibleName String   @db.VarChar(255)
   email           String   @db.VarChar(50)
   createdAt       DateTime @default(now())
+  cep             String   @db.VarChar(11)
+  address         String   @db.VarChar(255)
+  state           String   @db.VarChar(255)
+  city            String   @db.VarChar(255)
 
   @@map("orgs")
 }
